@@ -1,0 +1,1 @@
+export { SimpleRoute } from './simpleRoute';
