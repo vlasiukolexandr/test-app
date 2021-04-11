@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 
 import { StatElement } from '../../types';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -101,7 +100,6 @@ interface TopProps {
 
 const Top: FC<TopProps> = ({ rows }) => {
   const classes = useStyles();
-  const history = useHistory();
 
   const footerText = useMemo(() => {
     const number = `0${rows.length}`.slice(-2);
