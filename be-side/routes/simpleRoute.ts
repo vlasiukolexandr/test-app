@@ -7,6 +7,9 @@ export class SimpleRoute extends BaseRoute {
 
     this.get('/hello', simpleController.hello);
     this.get('/formatted_json', simpleController.jsonFormat);
+    this.get('/stats', simpleController.stats);
+    this.get('/top_ranked', simpleController.topRanked);
+    
     return this.router;
   }
 }
