@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -10,9 +10,11 @@ import {
   TableRow,
   Box,
   Typography,
+  Link
 } from '@material-ui/core';
 
 import { StatElement } from '../../types';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -99,12 +101,15 @@ interface TopProps {
 
 const Top: FC<TopProps> = ({ rows }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const footerText = useMemo(() => {
     const number = `0${rows.length}`.slice(-2);
     const text = rows.length > 1 ? 'Rows' : 'Row';
     return `${number} ${text}`;
   }, [rows]);
+
+  const goTo = useCallback((to: string) => () => { window.location.href = to }, []);
 
   return (
     <Box className={classes.container}>
@@ -132,7 +137,11 @@ const Top: FC<TopProps> = ({ rows }) => {
                 <TableCell className={classes.cell}>
                   <img src={row.image} className={classes.img} alt={row.name} />
                 </TableCell>
-                <TableCell className={classes.cell}>{row.name}</TableCell>
+                <TableCell className={classes.cell}>
+                  <Link component="a" variant="inherit" onClick={goTo(row.url)}>
+                    {row.name}
+                  </Link>
+                </TableCell>
                 <TableCell className={classes.cell} align="left">{row.rating}</TableCell>
                 <TableCell className={classes.cell} align="left">{row.downloads}</TableCell>
                 <TableCell className={classes.cell} align="left">{row.revenue}</TableCell>
